@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ViewExpenses = () => {
   const [expenses, setExpenses] = useState([]);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const fetchExpenses = async () => {
     try {
@@ -31,7 +33,11 @@ const ViewExpenses = () => {
     } catch (err) {
       setMessage("Error deleting expense");
     }
-  };
+  }; 
+  const handleUpdate = (id) => {
+  navigate(`/update-expense/${id}`);
+};
+  
 
   return (
     <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-lg">
@@ -61,9 +67,15 @@ const ViewExpenses = () => {
                 <td className="border p-2">{exp.payment_method}</td>
                 <td className="border p-2">{new Date(exp.date).toLocaleDateString()}</td>
                 <td className="border p-2 text-center">
+                    <button
+                    onClick={() => handleUpdate(exp.id)}
+                    className="bg-blue-500 text-white px-5 py-3 rounded hover:bg-blue-600"
+                  >
+                    Update
+                  </button>
                   <button
                     onClick={() => handleDelete(exp.id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                    className="bg-red-500 text-white px-5 py-3 rounded hover:bg-red-600"
                   >
                     Delete
                   </button>

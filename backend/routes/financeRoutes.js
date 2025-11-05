@@ -49,7 +49,7 @@ router.put("/:id", protect, async (req, res) => {
 
     const updated = await pool.query(
       `UPDATE finance 
-       SET title=$1, amount=$2, category=$3, description=$4, payment_method=$5, date=$6, updated_at=NOW()
+       SET title=$1, amount=$2, category=$3, description=$4, payment_method=$5, date=$6
        WHERE id=$7 AND user_id=$8
        RETURNING *`,
       [title, amount, category, description, payment_method, date, id, req.user.id]

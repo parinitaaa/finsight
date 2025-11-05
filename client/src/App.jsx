@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import AddExpense from './pages/AddExpense';
 import ViewExpenses from './pages/ViewExpenses';  
+import UpdateExpense from './pages/UpdateExpense';
 import { useEffect } from 'react';
 
 axios.defaults.withCredentials=true;
@@ -46,7 +47,7 @@ function App() {
         <Route path="/register" element={<Register setUser={setUser}  />} />
         <Route path="/add-expense"  element={user ? <AddExpense user={user} /> : <Navigate to="/login" />}/>
         <Route path="/view-expenses" element={user ? <ViewExpenses user={user} /> : <Navigate to="/login" />}/>
-        
+        <Route path="/update-expense/:id" element={<UpdateExpense />} />
 
       </Routes>
     </Router>
