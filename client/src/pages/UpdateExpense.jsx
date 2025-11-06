@@ -49,11 +49,11 @@ const UpdateExpense = () => {
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-4 text-gray-800">Update Expense</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input type="text" name="title" placeholder="Title" value={formData.title} onChange={handleChange} className="w-full border p-2 rounded" required />
-        <input type="number" name="amount" placeholder="Amount" value={formData.amount} onChange={handleChange} className="w-full border p-2 rounded" required />
-        <input type="text" name="category" placeholder="Category" value={formData.category} onChange={handleChange} className="w-full border p-2 rounded" required />
-        <input type="text" name="payment_method" placeholder="Payment Method" value={formData.payment_method} onChange={handleChange} className="w-full border p-2 rounded" required />
-        <input type="date" name="date" value={formData.date?.slice(0,10)} onChange={handleChange} className="w-full border p-2 rounded" required />
+        <input type="text" name="title" placeholder="Title" value={formData.title} onChange={handleChange} className="w-full border p-2 rounded"  />
+        <input type="number" name="amount" placeholder="Amount" value={formData.amount} onChange={handleChange} className="w-full border p-2 rounded"  />
+        <input type="text" name="category" placeholder="Category" value={formData.category} onChange={handleChange} className="w-full border p-2 rounded"  />
+        <input type="text" name="payment_method" placeholder="Payment Method" value={formData.payment_method} onChange={handleChange} className="w-full border p-2 rounded" />
+        <input type="date" name="date" value={formData.date?.slice(0,10)} onChange={handleChange} className="w-full border p-2 rounded"  />
         <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} className="w-full border p-2 rounded" />
         <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Update Expense</button>
       </form>

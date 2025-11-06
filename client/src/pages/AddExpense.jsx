@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const AddExpense = ({ user }) => {
   const [formData, setFormData] = useState({
@@ -44,6 +45,7 @@ const AddExpense = ({ user }) => {
 
 
   return (
+    <>
     <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-xl shadow-lg">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Add New Expense</h2>
       {message && <p className="text-blue-600 mb-4">{message}</p>}
@@ -103,6 +105,22 @@ const AddExpense = ({ user }) => {
         </button>
       </form>
     </div>
+    <div className="flex justify-center gap-6 mt-8">
+  <Link
+    to="/"
+    className="bg-gray-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-gray-700 transition"
+  >
+    Home
+  </Link>
+
+  <Link
+    to="/view-expenses"
+    className="bg-green-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-green-700 transition"
+  >
+    👀
+  </Link>
+</div>
+    </>
   );
 };
 
