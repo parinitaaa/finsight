@@ -11,7 +11,7 @@ const AddExpense = ({ user }) => {
     description: "",
     payment_method: "",
     date: "",
-  });
+});
 
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -117,7 +117,7 @@ const AddExpense = ({ user }) => {
     to="/view-expenses"
     className="bg-green-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-green-700 transition"
   >
-    👀
+    👀 view all expenses
   </Link>
 </div>
     </>

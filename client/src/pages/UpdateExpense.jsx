@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const UpdateExpense = () => {
   const { id } = useParams();
@@ -46,6 +47,7 @@ const UpdateExpense = () => {
   };
 
   return (
+    <>
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-4 text-gray-800">Update Expense</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -58,6 +60,28 @@ const UpdateExpense = () => {
         <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Update Expense</button>
       </form>
     </div>
+    <div className="flex justify-center gap-6 mt-8">
+  <Link
+    to="/"
+    className="bg-gray-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-gray-700 transition"
+  >
+    Home
+  </Link>
+
+  <Link
+    to="/add-expense"
+    className="bg-green-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-green-700 transition"
+  >
+    + Add an Expense
+  </Link>
+  <Link
+    to="/view-expenses"
+    className="bg-yellow-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-yellow-700 transition"
+  >
+    👀 view all expenses
+  </Link>
+</div>
+    </>
   );
 };
 

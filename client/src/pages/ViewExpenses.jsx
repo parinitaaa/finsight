@@ -45,6 +45,7 @@ const ViewExpenses = () => {
    <><div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-lg">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">My Expenses</h2>
       {message && <p className="text-blue-600 mb-4">{message}</p>}
+      
 
       {expenses.length === 0 ? (
         <p className="text-gray-500">No expenses added yet.</p>
@@ -71,13 +72,13 @@ const ViewExpenses = () => {
                 <td className="border p-2 text-center">
                     <button
                     onClick={() => handleUpdate(exp.id)}
-                    className="bg-blue-500 text-white px-5 py-3 rounded hover:bg-blue-600"
+                    className="bg-blue-500 text-white px-5 py-3 rounded hover:bg-blue-600 cursor-pointer"
                   >
                     Update
                   </button>
                   <button
                     onClick={() => handleDelete(exp.id)}
-                    className="bg-red-500 text-white px-5 py-3 rounded hover:bg-red-600"
+                    className="bg-red-500 text-white px-5 py-3 rounded hover:bg-red-600 ml-3 cursor-pointer"
                   >
                     Delete
                   </button>
@@ -100,7 +101,7 @@ const ViewExpenses = () => {
     to="/add-expense"
     className="bg-green-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-green-700 transition"
   >
-    +
+    + Add an Expense
   </Link>
 </div>
 

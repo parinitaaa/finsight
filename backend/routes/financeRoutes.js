@@ -9,8 +9,8 @@ router.post("/", protect, async (req, res) => {
   try {
     const { title, amount, category, description, payment_method, date } = req.body;
 
-    if (!title || !amount) {
-      return res.status(400).json({ msg: "Title and amount are required" });
+    if (!title || !amount || !category) {
+      return res.status(400).json({ msg: "Title,amount and category are required" });
     }
 
     const newExpense = await pool.query(
@@ -31,15 +31,34 @@ router.post("/", protect, async (req, res) => {
 router.get("/", protect, async (req, res) => {
   try {
     const expenses = await pool.query(
-      "SELECT * FROM finance WHERE user_id = $1 ORDER BY date DESC",
-      [req.user.id]
-    );
+      "SELECT * FROM finance WHERE user_id = $1 ORDER BY date DESC",[req.user.id]);
     res.json(expenses.rows);
   } catch (err) {
     console.error(err);
     res.status(500).json({ msg: "Server error" });
   }
 });
+// ✅ Get a single expense by ID
+router.get("/:id", protect, async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const expense = await pool.query(
+      "SELECT * FROM finance WHERE id=$1 AND user_id=$2",
+      [id, req.user.id]
+    );
+
+    if (expense.rows.length === 0) {
+      return res.status(404).json({ msg: "Expense not found or not authorized" });
+    }
+
+    res.json(expense.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Server error" });
+  }
+});
+
 
 // ✅ Update an expense
 router.put("/:id", protect, async (req, res) => {
