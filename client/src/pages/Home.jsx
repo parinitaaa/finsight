@@ -7,7 +7,7 @@ const Home = ({user,error}) => {
         <div>
             {error && <p className='text-red-500'>{error}</p>  }
            {user ?(<div><h2 className='text-3xl font-bold mb-4 text-gray-800'>Welcome back, {user.name}!</h2>
-           <p className='text-gray-600'>email:{user.email}</p>
+           <p className='text-grey-600'>email:{user.email}</p>
            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/add-expense"
@@ -22,6 +22,13 @@ const Home = ({user,error}) => {
               >
                 📋 View All Expenses
               </Link>
+              <Link
+                 to="/analyze-finance"
+                 className="bg-purple-600 text-white px-6 py-3 rounded-md shadow hover:bg-purple-700"
+              >
+                🔍 Analyze From File
+              </Link>
+
               </div>
            </div>) : 
 
