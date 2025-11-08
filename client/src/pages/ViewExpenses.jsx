@@ -43,8 +43,12 @@ const [sortOption, setSortOption] = useState("");
       setMessage("Error deleting expense");
     }
   }; 
+
   const handleUpdate = (id) => {
   navigate(`/update-expense/${id}`);
+};
+const handleView = (id) => {
+  navigate(`/view-expense/${id}`);
 };
   
 
@@ -134,17 +138,14 @@ const [sortOption, setSortOption] = useState("");
   )
 
   // ✅ Category Filter
-  .filter((exp) =>
-    filterCategory
-      ? exp.category.toLowerCase() === filterCategory.toLowerCase()
-      : true
+  .filter((z) =>
+    filterCategory? z.category.toLowerCase() === filterCategory.toLowerCase(): true /*IF filterCategory is empty ("" → meaning “All Categories”)
+✅ return true → keep ALL item */
   )
 
   // ✅ Payment Filter
   .filter((exp) =>
-    filterPayment
-      ? exp.payment_method.toLowerCase() === filterPayment.toLowerCase()
-      : true
+    filterPayment ? exp.payment_method.toLowerCase() === filterPayment.toLowerCase() : true
   )
 
   // ✅ Sorting
@@ -172,6 +173,12 @@ const [sortOption, setSortOption] = useState("");
       <td className="border p-2">{exp.payment_method}</td>
       <td className="border p-2">{new Date(exp.date).toLocaleDateString()}</td>
       <td className="border p-2 text-center">
+        <button
+          onClick={() => handleView(exp.id)}
+          className="bg-yellow-500 text-white px-5 py-3 rounded hover:bg-yellow-600 mr-3 cursor-pointer"
+        >
+          View
+        </button>
         <button
           onClick={() => handleUpdate(exp.id)}
           className="bg-blue-500 text-white px-5 py-3 rounded hover:bg-blue-600 cursor-pointer"
