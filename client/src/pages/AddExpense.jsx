@@ -68,13 +68,21 @@ const AddExpense = ({ user }) => {
           required
           className="w-full p-3 border rounded-md"
         />
-        <input
-          name="category"
-          value={formData.category}
-          onChange={handleChange}
-          placeholder="Category (e.g. Food, Rent)"
-          className="w-full p-3 border rounded-md"
-        />
+        <select
+  name="category"
+  value={formData.category}
+  onChange={handleChange}
+  required
+  className="w-full p-3 border rounded-md"
+>
+  <option value="">Select Category</option>
+  <option value="food">Food</option>
+  <option value="shopping">Shopping</option>
+  <option value="bills">Bills</option>
+  <option value="travel">Travel</option>
+  <option value="rent">Rent</option>
+  <option value="other">Other</option>
+</select>
         <input
           name="payment_method"
           value={formData.payment_method}

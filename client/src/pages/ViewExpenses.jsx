@@ -9,12 +9,19 @@ const ViewExpenses = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const fetchExpenses = async () => {
+  const [search, setSearch] = useState("");
+const [filterCategory, setFilterCategory] = useState("");
+
+const [filterPayment, setFilterPayment] = useState("");
+const [sortOption, setSortOption] = useState("");
+
+
+  const fetchExpenses = async () => { /* function that fetches expenses from your backend API*/
     try {
       const res = await axios.get("http://localhost:5000/api/finance", {
-        withCredentials: true,
+        withCredentials: true, /* tells Axios to include cookies in the request*/
       });
-      setExpenses(res.data);
+      setExpenses(res.data); /* This stores your fetched expense list into the component state.*/
     } catch (err) {
       setMessage("Error fetching expenses");
     }
@@ -46,8 +53,66 @@ const ViewExpenses = () => {
       <h2 className="text-2xl font-bold mb-6 text-gray-800">My Expenses</h2>
       {message && <p className="text-blue-600 mb-4">{message}</p>}
       
+<div className="flex flex-col md:flex-row gap-4 mb-6  ">
 
-      {expenses.length === 0 ? (
+  {/* ✅ Search */}
+  <input
+    type="text"
+    placeholder="Search by title..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    className="border p-2 rounded w-full"
+  />
+
+  {/* ✅ Category Filter */}
+  <select
+    value={filterCategory}
+    onChange={(e) => setFilterCategory(e.target.value)}
+    className="border p-2 rounded w-full md:w-40"
+  >
+    <option value="">All Categories</option>
+    <option value="food">Food</option>
+    <option value="shopping">Shopping</option>
+    <option value="bills">Bills</option>
+    <option value="travel">Travel</option>
+    <option value="rent">Rent</option>
+    <option value="other">Other</option>
+  
+  </select>
+
+
+  {/* ✅ Payment Filter */}
+  <select
+    value={filterPayment}
+    onChange={(e) => setFilterPayment(e.target.value)}
+    className="border p-2 rounded w-full md:w-40"
+  >
+    <option value="">All Payments</option>
+    <option value="cash">Cash</option>
+    <option value="upi">UPI</option>
+    <option value="card">Card</option>
+    <option value="netbanking">Net Banking</option>
+  </select>
+
+  {/* ✅ Sorting */}
+  <select
+    value={sortOption}
+    onChange={(e) => setSortOption(e.target.value)}
+    className="border p-2 rounded w-full md:w-40"
+  >
+    <option value="">Sort By</option>
+    <option value="amountLowHigh">Amount: Low → High</option>
+    <option value="amountHighLow">Amount: High → Low</option>
+    <option value="dateNewOld">Date: Newest → Oldest</option>
+    <option value="dateOldNew">Date: Oldest → Newest</option>
+  </select>
+
+</div>
+
+
+
+
+     {expenses.length === 0 ? (
         <p className="text-gray-500">No expenses added yet.</p>
       ) : (
         <table className="w-full border-collapse border border-gray-300">
@@ -62,29 +127,69 @@ const ViewExpenses = () => {
             </tr>
           </thead>
           <tbody>
-            {expenses.map((exp) => (
-              <tr key={exp.id}>
-                <td className="border p-2">{exp.title}</td>
-                <td className="border p-2">₹{exp.amount}</td>
-                <td className="border p-2">{exp.category}</td>
-                <td className="border p-2">{exp.payment_method}</td>
-                <td className="border p-2">{new Date(exp.date).toLocaleDateString()}</td>
-                <td className="border p-2 text-center">
-                    <button
-                    onClick={() => handleUpdate(exp.id)}
-                    className="bg-blue-500 text-white px-5 py-3 rounded hover:bg-blue-600 cursor-pointer"
-                  >
-                    Update
-                  </button>
-                  <button
-                    onClick={() => handleDelete(exp.id)}
-                    className="bg-red-500 text-white px-5 py-3 rounded hover:bg-red-600 ml-3 cursor-pointer"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+                {expenses
+  // ✅ Search
+  .filter((z) =>
+    z.title.toLowerCase().includes(search.toLowerCase())
+  )
+
+  // ✅ Category Filter
+  .filter((exp) =>
+    filterCategory
+      ? exp.category.toLowerCase() === filterCategory.toLowerCase()
+      : true
+  )
+
+  // ✅ Payment Filter
+  .filter((exp) =>
+    filterPayment
+      ? exp.payment_method.toLowerCase() === filterPayment.toLowerCase()
+      : true
+  )
+
+  // ✅ Sorting
+  .sort((a, b) => {
+    switch (sortOption) {
+      case "amountLowHigh":
+        return a.amount - b.amount;
+      case "amountHighLow":
+        return b.amount - a.amount;
+      case "dateNewOld":
+        return new Date(b.date) - new Date(a.date);
+      case "dateOldNew":
+        return new Date(a.date) - new Date(b.date);
+      default:
+        return 0;
+    }
+  })
+
+  // ✅ Final mapping
+  .map((exp) => (
+    <tr key={exp.id}>
+      <td className="border p-2">{exp.title}</td>
+      <td className="border p-2">₹{exp.amount}</td>
+      <td className="border p-2">{exp.category}</td>
+      <td className="border p-2">{exp.payment_method}</td>
+      <td className="border p-2">{new Date(exp.date).toLocaleDateString()}</td>
+      <td className="border p-2 text-center">
+        <button
+          onClick={() => handleUpdate(exp.id)}
+          className="bg-blue-500 text-white px-5 py-3 rounded hover:bg-blue-600 cursor-pointer"
+        >
+          Update
+        </button>
+
+        <button
+          onClick={() => handleDelete(exp.id)}
+          className="bg-red-500 text-white px-5 py-3 rounded hover:bg-red-600 ml-3 cursor-pointer"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  ))
+}
+
           </tbody>
         </table>
       )}
