@@ -69,27 +69,35 @@ const AddExpense = ({ user }) => {
           className="w-full p-3 border rounded-md"
         />
         <select
-  name="category"
-  value={formData.category}
-  onChange={handleChange}
-  required
-  className="w-full p-3 border rounded-md"
->
-  <option value="">Select Category</option>
-  <option value="food">Food</option>
-  <option value="shopping">Shopping</option>
-  <option value="bills">Bills</option>
-  <option value="travel">Travel</option>
-  <option value="rent">Rent</option>
-  <option value="other">Other</option>
-</select>
-        <input
-          name="payment_method"
-          value={formData.payment_method}
+          name="category"
+          value={formData.category}
           onChange={handleChange}
-          placeholder="Payment Method (Cash, UPI, etc.)"
+          required
           className="w-full p-3 border rounded-md"
-        />
+        >
+             <option value="" disabled>Select Category</option>
+             <option value="food">Food</option>
+             <option value="shopping">Shopping</option>
+             <option value="bills">Bills</option>
+             <option value="travel">Travel</option>
+             <option value="rent">Rent</option>
+             <option value="other">Other</option>
+        </select>
+
+        <select
+             name="payment_method"
+             value={formData.payment_method}
+             onChange={handleChange}
+             required
+            className="w-full p-3 border rounded-md"
+          >
+            <option value=""disabled>Select Payment Method</option>
+            <option value="cash">Cash</option>
+            <option value="upi">UPI</option>
+            <option value="card">Card</option>
+            <option value="netbanking">Net Banking</option>
+        </select>
+
         <textarea
           name="description"
           value={formData.description}
