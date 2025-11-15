@@ -12,6 +12,7 @@ const pool = require("../config/db");
         if (user.rows.length === 0) {
             return res.status(401).json({ msg: "User not found" });
         }
+    
         req.user = user.rows[0];
         next();
     }

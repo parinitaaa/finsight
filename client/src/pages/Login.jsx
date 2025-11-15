@@ -31,11 +31,9 @@ const Login = ({setUser}) => {
         <h2 className="text-xl mb-4">Login</h2>
         {error && <p className="text-red-500">{error}</p>}
         <input type="email" placeholder="email" className="border p-2 w-full
-        mb-3" value={form.email} onChange={(e)=>setForm({...
-            form,email:e.target.value})} /> <br />
+        mb-3" value={form.email} onChange={(e)=>setForm({...  form,email:e.target.value})} /> <br />
         <input type="password" placeholder="password" className="border p-2 w-full
-        mb-3" value={form.password} onChange={(e)=>setForm({...
-            form,password:e.target.value})} /> <br />
+        mb-3" value={form.password} onChange={(e)=>setForm({... form,password:e.target.value})} /> <br />
         <button className="bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition
         w-full">Login</button>
           <br />
